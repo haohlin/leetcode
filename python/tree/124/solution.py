@@ -1,4 +1,3 @@
-from typing import List
 import math
 
 # Definition for a binary tree node.
