@@ -1,6 +1,6 @@
 from typing import List
 
-class Solution:
+class Solution1:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         left = 0
         right = len(nums) - 1
@@ -15,3 +15,15 @@ class Solution:
             elif cur > target:
                 right -= 1
         return -1
+
+class Solution2: 
+    # HashMap
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        nums_dict = dict()
+        for i, n in enumerate(nums):
+            if target - n in nums_dict:
+                return [nums_dict[target - n], i]
+            nums_dict[n] = i
+        return [-1, -1]
+
+        
