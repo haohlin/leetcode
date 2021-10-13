@@ -12,3 +12,7 @@ class Solution:
                 if j - vi >= 0:
                     dp[j] = max(dp[j], dp[j - vi] + wi)
         return dp[V]
+
+sol = Solution()
+result = sol.knapsack(10,2,[[1,3],[10,4]])
+print(result)

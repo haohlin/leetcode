@@ -1,25 +1,24 @@
-import math
-from typing import List
+class TreeNode:
+    def __init__(self, left=None, right=None):
+        self.left = left
+        self.right = right
 
 class Solution:
-    def coinChange(self, coins: List[int], amount: int) -> int:
-        def dp():
-            if sum(coin_list) == amount:
-                self.min_count = min(len(coin_list), self.min_count)
-                return
-            for c in coins:
-                coin_list.append(c)
-                if sum(coin_list) <= amount:
-                    dp()
-                coin_list.pop()
-            return
-
+    def maxPath(self, root: TreeNode) -> int:
+        if root == None:
+            return -1
+        max_left = self.maxPath(root.left)
+        max_right = self.maxPath(root.right)
+        return max(max_left, max_right) + 1
         
-        self.min_count = math.inf
-        coin_list = []
-        dp()
-        return self.min_count
+
+
+n4 = TreeNode()
+n3 = TreeNode(None, n4)
+n1 = TreeNode()
+n2 = TreeNode(n3, n4)
+root = TreeNode(n1, n2)
 
 sol = Solution()
-result = sol.coinChange([5,2,1], 11)
+result = sol.maxPath(root)
 print(result)
