@@ -1,9 +1,9 @@
 
 from typing import List
+import heapq
 
 class Solution:
     def max_heapify(self, heap, root, heap_len):
-        p = root
         largest = root
         left, right = (largest << 1) + 1, (largest << 1) + 2
 
@@ -31,6 +31,14 @@ class Solution:
         self.heap_sort(nums)
         return nums
 
+class Solution2:
+    def sortArray(self, nums):
+        result = []
+        for i in range(len(nums)):
+            heapq._heapify_max(nums)
+            result.append(nums[0])
+            heapq._heappop_max(nums)
+        return result
 
-sol = Solution()
+sol = Solution2()
 print(sol.sortArray([5,3,2,4,1]))
