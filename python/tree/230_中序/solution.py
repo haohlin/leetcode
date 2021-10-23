@@ -1,4 +1,4 @@
-from typing import List
+from typing import Optional
 
 # Definition for a binary tree node.
 class TreeNode:
