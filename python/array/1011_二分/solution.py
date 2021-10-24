@@ -16,7 +16,7 @@ class Solution:
     def maxDay(self, weights, cap):
         sum_i = 0
         max_day = 1
-        for i, w in enumerate(weights):
+        for w in weights:
             sum_i += w
             if sum_i > cap:
                 sum_i = w
