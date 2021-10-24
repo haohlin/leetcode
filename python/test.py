@@ -1,24 +1,21 @@
-class TreeNode:
-    def __init__(self, left=None, right=None):
-        self.left = left
-        self.right = right
+import math
+from collections import defaultdict
 
 class Solution:
-    def maxPath(self, root: TreeNode) -> int:
-        if root == None:
-            return -1
-        max_left = self.maxPath(root.left)
-        max_right = self.maxPath(root.right)
-        return max(max_left, max_right) + 1
-        
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        window = defaultdict(int)
+        left = right = 0
+        max_len= 0
+        while right < len(s):
+            window[s[right]] += 1
+            while window[s[right]] > 1:
+                window[s[left]] -= 1
+                left += 1
+            max_len = max(max_len, right + 1 - left)
+            right += 1
+        return max_len
 
-
-n4 = TreeNode()
-n3 = TreeNode(None, n4)
-n1 = TreeNode()
-n2 = TreeNode(n3, n4)
-root = TreeNode(n1, n2)
 
 sol = Solution()
-result = sol.maxPath(root)
+result = sol.lengthOfLongestSubstring("pwwkew")
 print(result)
