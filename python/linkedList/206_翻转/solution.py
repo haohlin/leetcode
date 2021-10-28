@@ -15,3 +15,15 @@ class Solution:
         head.next.next = head
         head.next = None
         return temp
+
+class Solution2:
+    # 迭代
+    def reverseList(self, head: ListNode) -> ListNode:
+        curr = head
+        prev = None
+        while curr:
+            temp = curr.next
+            curr.next = prev
+            prev = curr
+            curr = temp
+        return prev
