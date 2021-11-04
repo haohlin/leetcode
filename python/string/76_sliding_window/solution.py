@@ -1,45 +1,31 @@
 import math
-import collections
+from collections import defaultdict
 
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        def windowOK(dict1, dict2):
-            if len(dict1) != len(dict2):
+        left = right = 0
+        res_len = math.inf
+        result = ''
+        window = defaultdict(int)
+        need = defaultdict(int)
+        for n in t:
+            need[n] += 1
+        while right < len(s):
+            window[s[right]] += 1
+            while self.hasNeed(need, window) and left <= right:
+                if right - left + 1 < res_len:
+                    res_len = right - left + 1
+                    result = s[left:right+1]
+                window[s[left]] -= 1
+                left += 1
+            right += 1
+        return result
+
+    def hasNeed(self, need, window):
+        for k, v in need.items():
+            if window[k] < v:
                 return False
-            for k in dict1:
-                if dict1[k] < dict2[k]:
-                    return False
-            return True
-
-        s = list(s)
-        t = list(t)
-        window = collections.defaultdict(int)
-        need = collections.defaultdict(int)
-        for c in t:
-            need[c] += 1
-        start = 0
-        end = 0
-        min_len = math.inf
-        result = []
-
-        while end < len(s):
-            # cur_win = s[start:end]
-            if s[end] in need:
-                window[s[end]] += 1
-            while windowOK(window, need):
-                if end - start + 1 < min_len:
-                    min_len = end - start + 1
-                    result = s[start:start + min_len]
-                if s[start] in need:
-                    window[s[start]] -= 1
-                    if window[s[start]] == 0:
-                        del window[s[start]]
-                start += 1
-            end += 1
-
-        if min_len == math.inf:
-            return ""
-        return ''.join(result)
+        return True
 
 sol = Solution()
 result = sol.minWindow("ADOBECODEBANC", "ABC")
