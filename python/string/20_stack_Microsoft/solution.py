@@ -1,7 +1,3 @@
-# Input: n对圆括号
-# output: 合法的全部情况
-# (()_
-
 class Solution:
     def isLegal(self, s: str):
         queue = []
@@ -46,5 +42,3 @@ result_2 = sol.isLegal(test_2)
 result_3 = sol.isLegal(test_3)
 result_4 = sol.isLegal(test_4)
 result_5 = sol.isLegal(test_5)
-
-print(result_1, result_2, result_3, result_4, result_5)
