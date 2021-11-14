@@ -13,17 +13,14 @@ class Solution:
             return 0
         q = [root]
         depth = 0
-        minD = math.inf
         while q:
             depth += 1
             for i in range(len(q)):
                 r = q.pop(0)
                 if not r.left and not r.right:
-                    minD = min(minD, depth)
-                    continue
+                    return depth
                 if r.left:
                     q.append(r.left)
                 if r.right:
                     q.append(r.right)
             
-        return minD
