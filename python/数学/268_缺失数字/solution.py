@@ -23,4 +23,9 @@ class Solution3:
 
 class Solution4:
     def missingNumber(self, nums: List[int]) -> int:
-        return sum(list(range(len(nums) + 1))) - sum(nums)
+        result = 0
+        for i in range(len(nums)):
+            result += i - nums[i]
+
+        result += len(nums)
+        return result
