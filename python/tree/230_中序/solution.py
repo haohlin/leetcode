@@ -6,7 +6,8 @@ class TreeNode:
         self.val = val
         self.left = left
         self.right = right
-class Solution:
+        
+class Solution1:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
         sorted_list = []
         self.getList(root, sorted_list)
@@ -20,3 +21,20 @@ class Solution:
         l.append(root.val)
         self.getList(root.right, l)
         return
+
+class Solution2:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        def inorder(root):
+            if not root:
+                return 
+            inorder(root.left)
+            self.count += 1
+            if self.count == k:
+                self.result = root.val
+            inorder(root.right)
+            return
+        self.result = 0
+        self.count = 0
+        inorder(root)
+
+        return self.result
