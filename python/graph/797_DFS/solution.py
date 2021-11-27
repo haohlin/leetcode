@@ -4,13 +4,12 @@ class Solution:
     def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
         def backtrack(node):
             if node == len(graph) - 1:
-                res = res_i.copy()
-                result.append(res)
+                result.append(path.copy())
             for i in graph[node]:
-                res_i.append(i)
+                path.append(i)
                 backtrack(i)
-                res_i.pop()
+                path.pop()
         result = []
-        res_i = [0]
+        path = [0]
         backtrack(0)
         return result

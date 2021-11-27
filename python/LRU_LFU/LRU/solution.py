@@ -66,3 +66,78 @@ lRUCache.put(4, 4)# 该操作会使得关键字 1 作废，缓存是 {4=4, 3=3}
 lRUCache.get(1)# 返回 -1 (未找到)
 lRUCache.get(3)# 返回 3
 lRUCache.get(4)# 返回 4
+
+
+class ListNode2:
+    def __init__(self, key=0, val=0, next=None, prev=None):
+        self.key = key
+        self.val = val
+        self.next = None
+        self.prev = None
+
+class DLList2:
+    def __init__(self):
+        self.sentinel = ListNode2()
+        self.sentinel.next = self.sentinel
+        self.sentinel.prev = self.sentinel
+
+    def delete(self, node):
+        node.prev.next = node.next
+        node.next.prev = node.prev
+
+    def delLast(self):
+        last = self.sentinel.prev
+        self.delete(self.sentinel.prev)
+        return last.key
+        
+    def addFront(self, node):
+        temp = self.sentinel.next
+        self.sentinel.next = node
+        node.next = temp
+        temp.prev = node
+        node.prev = self.sentinel
+
+    def print(self):
+        temp = self.sentinel.next
+        result = []
+        while temp != self.sentinel:
+            result.append([temp.key, temp.val])
+            temp = temp.next
+        print(result)
+
+
+class LRUCache2:
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.size = 0
+        self.hashmap = dict()
+        self.list = DLList2()
+
+    def get(self, key: int) -> int:
+        if key not in self.hashmap:
+            return -1
+        node = self.hashmap[key]
+        self.list.delete(node)
+        self.list.addFront(node)
+        # self.list.print()
+        return node.val
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.hashmap:
+            node = self.hashmap[key]
+            node.val = value
+            self.list.delete(node)
+            self.list.addFront(node)
+            # self.list.print()
+            return
+
+        node = ListNode2(key, value)
+        self.hashmap[key] = node
+        self.list.addFront(node)
+        self.size += 1
+        if self.size > self.capacity:
+            last_key = self.list.delLast()
+            del self.hashmap[last_key]
+            self.size -= 1
+        # self.list.print()
+        return
