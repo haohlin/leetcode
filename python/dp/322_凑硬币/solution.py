@@ -31,7 +31,7 @@ class Solution1:
 
 class Solution2:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        dp = [amount + 1 for i in range(amount + 1)]
+        dp = [amount + 1 for i in range(amount + 1)] # amount + 1 or math.inf
         dp[0] = 0
         for i in range(amount+1):
             for c in coins:
